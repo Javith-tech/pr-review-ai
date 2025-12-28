@@ -4,7 +4,7 @@ LLM-Powered GitHub Pull Request Review Assistant - A production-grade tool that 
 
 ## 🎬 Demo
 
-https://github.com/hamza7malik/pr-review-ai/assets/demo.mp4
+[Press here to watch demo](https://github.com/user-attachments/assets/6493acf4-3077-44bc-ab9a-5667dc2148e5)
 
 > **Note**: If the video doesn't load above, you can [watch it here](./frontend/public/demo.mp4) or view it in the live application.
 
