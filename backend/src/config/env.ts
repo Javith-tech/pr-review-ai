@@ -7,9 +7,15 @@ const envSchema = z
     OPENAI_MODEL: z.string().optional(),
     GEMINI_API_KEY: z.string().optional(),
     GEMINI_MODEL: z.string().optional(),
-    GITHUB_TOKEN: z.string().optional(), // Made optional for public PR reviews
+    GITHUB_TOKEN: z.string().optional(),
     PORT: z.string().default('4000'),
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+    GITHUB_CLIENT_ID: z.string(),
+    GITHUB_CLIENT_SECRET: z.string(),
+    GITHUB_CALLBACK_URL: z.string(),
+    JWT_SECRET: z.string(),
+    SESSION_SECRET: z.string(),
+    FRONTEND_URL: z.string().default('http://localhost:5173'),
   })
   .refine(
     (data) => {

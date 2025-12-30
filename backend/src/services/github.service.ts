@@ -3,12 +3,12 @@ import { env } from '../config/env';
 import type { PrMetadata, PrFile } from '../types';
 import { logger } from '../utils';
 
-class GitHubService {
+export class GitHubService {
   private octokit: Octokit;
 
-  constructor() {
+  constructor(userToken?: string) {
     this.octokit = new Octokit({
-      auth: env.GITHUB_TOKEN,
+      auth: userToken || env.GITHUB_TOKEN,
     });
   }
 

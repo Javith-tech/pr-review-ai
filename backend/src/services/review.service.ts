@@ -1,13 +1,16 @@
-import { githubService, llmService } from '.';
+import { GitHubService } from './github.service';
+import { llmService } from '.';
 import type { PrReviewResponse } from '../types';
 import { parsePrUrl, chunkDiff, logger } from '../utils';
 
 class ReviewService {
-  async reviewPullRequest(prUrl: string): Promise<PrReviewResponse> {
+  async reviewPullRequest(prUrl: string, userToken?: string): Promise<PrReviewResponse> {
     try {
       logger.info(`Starting review for PR: ${prUrl}`);
 
       const { owner, repo, pullNumber } = parsePrUrl(prUrl);
+
+      const githubService = new GitHubService(userToken);
 
       const [metadata, files] = await Promise.all([
         githubService.getPrMetadata(owner, repo, pullNumber),

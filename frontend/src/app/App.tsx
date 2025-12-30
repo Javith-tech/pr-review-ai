@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { FormEvent } from "react";
 import { useMutation } from "@tanstack/react-query";
 import {
@@ -21,13 +21,24 @@ import {
   prUrlSchema,
   useReviewStore,
 } from "@/features/review";
-import { Loader2, PlayCircle, X } from "lucide-react";
+import { Loader2, PlayCircle, X, LogOut } from "lucide-react";
 import { ZodError } from "zod";
+import { useAuth } from "@/hooks/useAuth";
+import { LoginPage } from "@/pages/LoginPage";
 
 function App() {
   const { prUrl, setPrUrl } = useReviewStore();
   const [error, setError] = useState<string>("");
   const [showDemo, setShowDemo] = useState<boolean>(false);
+  const { user, authenticated, loading, logout, isGuestMode, login } =
+    useAuth();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("auth") === "success") {
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+  }, []);
 
   const mutation = useMutation({
     mutationFn: reviewPullRequest,
@@ -50,6 +61,20 @@ function App() {
     }
   };
 
+  // Show loading screen while checking auth
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+        <Loader2 className="h-8 w-8 animate-spin text-white" />
+      </div>
+    );
+  }
+
+  // Show login page if not authenticated and not in guest mode
+  if (!authenticated && !isGuestMode) {
+    return <LoginPage />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <div className="container max-w-5xl mx-auto py-12 px-4">
@@ -68,22 +93,49 @@ function App() {
           <p className="text-sm text-muted-foreground mt-2">
             Paste a GitHub PR URL and get instant AI-powered code review
           </p>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowDemo(true)}
-            className="mt-4"
-          >
-            <PlayCircle className="mr-2 h-4 w-4" />
-            Watch Demo
-          </Button>
+          <div className="flex items-center justify-center gap-3 mt-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowDemo(true)}
+            >
+              <PlayCircle className="mr-2 h-4 w-4" />
+              Watch Demo
+            </Button>
+            {authenticated && user ? (
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-200 text-sm">
+                  <img
+                    src={user.avatarUrl}
+                    alt={user.username}
+                    className="h-6 w-6 rounded-full"
+                  />
+                  <span className="font-medium">{user.username}</span>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={logout}
+                  title="Logout"
+                >
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
+            ) : isGuestMode ? (
+              <Button variant="default" size="sm" onClick={login}>
+                Sign in with GitHub
+              </Button>
+            ) : null}
+          </div>
         </div>
 
         <Card className="mb-8">
           <CardHeader>
             <CardTitle>Submit Pull Request</CardTitle>
             <CardDescription>
-              Enter a public GitHub pull request URL to get started
+              {authenticated
+                ? "Enter any GitHub pull request URL (public or private)"
+                : "Enter a public GitHub pull request URL to get started"}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -113,10 +165,19 @@ function App() {
                 </Button>
               </div>
 
-              <p className="text-xs text-amber-600 font-medium">
-                ℹ️ Note: Currently supports public PRs only. Private repository
-                support coming soon!
-              </p>
+              {!authenticated && (
+                <p className="text-xs text-amber-600 font-medium">
+                  ℹ️ Note: Currently in guest mode - supports public PRs only.{" "}
+                  <button
+                    type="button"
+                    onClick={() => window.location.reload()}
+                    className="underline hover:text-amber-700"
+                  >
+                    Sign in with GitHub
+                  </button>{" "}
+                  to review private PRs.
+                </p>
+              )}
 
               {error && (
                 <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md p-3">
