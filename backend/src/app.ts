@@ -32,6 +32,7 @@ export function createApp(): Application {
         httpOnly: true,
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
+        path: '/',
       },
     }) as unknown as RequestHandler
   );

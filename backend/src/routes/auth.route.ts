@@ -23,11 +23,13 @@ router.get(
 
     const token = generateToken(user);
 
+    // Set cookie with production-safe settings
     res.cookie('token', token, {
       httpOnly: true,
       secure: env.NODE_ENV === 'production',
       sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: '/',
     });
 
     res.redirect(`${env.FRONTEND_URL}?auth=success`);
@@ -69,6 +71,7 @@ router.post('/logout', (_req, res) => {
     httpOnly: true,
     secure: env.NODE_ENV === 'production',
     sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
+    path: '/',
   });
 
   res.json({ success: true, message: 'Logged out successfully' });
