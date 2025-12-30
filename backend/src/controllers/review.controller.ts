@@ -10,6 +10,8 @@ export class ReviewController {
       const authReq = req as AuthenticatedRequest;
 
       const userToken = authReq.user?.accessToken;
+      console.log('[REVIEW] User:', authReq.user?.username);
+      console.log('[REVIEW] Has token:', !!userToken);
 
       const review = await reviewService.reviewPullRequest(validatedData.prUrl, userToken);
 

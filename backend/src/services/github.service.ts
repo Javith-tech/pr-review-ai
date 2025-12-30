@@ -7,6 +7,10 @@ export class GitHubService {
   private octokit: Octokit;
 
   constructor(userToken?: string) {
+    console.log(
+      '[GITHUB SERVICE] Using token:',
+      userToken ? 'user token' : env.GITHUB_TOKEN ? 'env token' : 'no token'
+    );
     this.octokit = new Octokit({
       auth: userToken || env.GITHUB_TOKEN,
     });
