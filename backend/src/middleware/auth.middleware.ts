@@ -1,7 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt';
-import { users } from '../config/passport';
-import type { AuthenticatedRequest } from '../types/user.types';
+import type { AuthenticatedRequest, User } from '../types/user.types';
 
 export const optionalAuth = (req: Request, _res: Response, next: NextFunction): void => {
   const token = req.cookies?.token;
@@ -9,10 +8,16 @@ export const optionalAuth = (req: Request, _res: Response, next: NextFunction): 
   if (token) {
     const payload = verifyToken(token);
     if (payload) {
-      const user = users.get(payload.userId);
-      if (user) {
-        (req as AuthenticatedRequest).user = user;
-      }
+      const user: User = {
+        id: payload.userId,
+        username: payload.username,
+        displayName: payload.displayName,
+        profileUrl: payload.profileUrl,
+        avatarUrl: payload.avatarUrl,
+        email: payload.email,
+        accessToken: payload.accessToken,
+      };
+      (req as AuthenticatedRequest).user = user;
     }
   }
 

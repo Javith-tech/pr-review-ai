@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { passport, users } from '../config/passport';
+import { passport } from '../config/passport';
 import { generateToken, verifyToken } from '../utils/jwt';
 import type { User } from '../types/user.types';
 import { env } from '../config/env';
@@ -61,17 +61,17 @@ router.get('/me', (req, res) => {
     return;
   }
 
-  const user = users.get(payload.userId);
-
-  if (!user) {
-    console.log('[AUTH /me] User not found in store');
-    res.json({ user: null, authenticated: false });
-    return;
-  }
-
-  console.log('[AUTH /me] User authenticated:', user.username);
+  console.log('[AUTH /me] User authenticated:', payload.username);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { accessToken, ...userWithoutToken } = user;
+  const { accessToken, ...userWithoutToken } = {
+    id: payload.userId,
+    username: payload.username,
+    displayName: payload.displayName,
+    profileUrl: payload.profileUrl,
+    avatarUrl: payload.avatarUrl,
+    email: payload.email,
+    accessToken: payload.accessToken,
+  };
 
   res.json({
     user: userWithoutToken,
