@@ -77,6 +77,18 @@ export class GitHubService {
       );
     } catch (error) {
       logger.error('Failed to fetch PR files', error);
+
+      if (error && typeof error === 'object' && 'status' in error) {
+        const status = (error as { status: number }).status;
+        console.log('[GITHUB] PR files fetch failed with status:', status);
+        if (status === 404) {
+          throw new Error('PR not found. Please check the URL.');
+        }
+        if (status === 403) {
+          throw new Error('Access denied. You may not have access to this private repository.');
+        }
+      }
+
       throw new Error('Failed to fetch PR files from GitHub');
     }
   }
