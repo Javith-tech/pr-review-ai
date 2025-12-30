@@ -40,12 +40,19 @@ export class GitHubService {
 
       if (error && typeof error === 'object' && 'status' in error) {
         const status = (error as { status: number }).status;
+        const errorMessage = (error as any)?.response?.data?.message || '';
+
         if (status === 404) {
           throw new Error(
             'PR not found. Please check the URL and ensure the repository is public.'
           );
         }
         if (status === 403) {
+          if (errorMessage.includes('OAuth App access restrictions')) {
+            throw new Error(
+              'Access denied. This organization has OAuth App access restrictions enabled. Please grant access to this app in your GitHub settings.'
+            );
+          }
           throw new Error('Access denied. The repository may be private or rate limit exceeded.');
         }
       }
@@ -80,11 +87,18 @@ export class GitHubService {
 
       if (error && typeof error === 'object' && 'status' in error) {
         const status = (error as { status: number }).status;
+        const errorMessage = (error as any)?.response?.data?.message || '';
+
         console.log('[GITHUB] PR files fetch failed with status:', status);
         if (status === 404) {
           throw new Error('PR not found. Please check the URL.');
         }
         if (status === 403) {
+          if (errorMessage.includes('OAuth App access restrictions')) {
+            throw new Error(
+              'Access denied. This organization has OAuth App access restrictions enabled. Please grant access to this app in your GitHub settings.'
+            );
+          }
           throw new Error('Access denied. You may not have access to this private repository.');
         }
       }

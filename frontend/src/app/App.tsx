@@ -182,6 +182,22 @@ function App() {
               {error && (
                 <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md p-3">
                   {error}
+                  {authenticated &&
+                    error.includes("Access denied") &&
+                    error.includes("organization") && (
+                      <div className="mt-2 text-xs">
+                        💡 This might be an organization OAuth restriction.{" "}
+                        <a
+                          href="https://github.com/settings/connections/applications"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline font-medium hover:text-red-700"
+                        >
+                          Grant organization access
+                        </a>{" "}
+                        in your GitHub settings.
+                      </div>
+                    )}
                 </div>
               )}
 
